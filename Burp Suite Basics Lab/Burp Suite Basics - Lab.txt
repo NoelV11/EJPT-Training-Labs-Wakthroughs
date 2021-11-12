@@ -1,0 +1,39 @@
+Burp Suite Basics - Lab
+
+When going to http://172.16.160.102 ,we find - Image B1
+
+We peer over the source code and find -Image B2
+
+Then heading over to robots.txt,we find - Image B3
+
+Each of these entries only present "Not found resource",except for /connections,which displays ' Debug is FALSE' - Image B4
+
+From the robots.txt entry,we find an entry named /*?debug=*
+What do you understand? - * - wildcard. Anything can come between/ and ?   and anything can come after =
+
+So what we do now,is to set our Proxy to intercept and go to /*?debug=*
+
+We get the intercepted packet - Image B5
+Now,send this packet to Repeater
+
+Now manually editing the /destination/path from  /*?debug=* to  /?debug= ,to see if a page actually exists
+
+Hit send and we get back a response of the main page(http://172.16.160.102)
+
+I tried a lot appending numbers,strings and even symbols after the = sign(NOTE:We were trying to get /?debug=
+
+Changing tactics,we now seek /connections/?debug=
+
+After the equal to sign,i entered a string = pppppppppppppppppp and got back this response - Image B7
+So,there is a variable Debug,whose value can be set to TRUE(1) or FALSE(0)
+
+So,we need to tamper more,to get the secret credentials.
+I tampered,I got - I tried inserting =TRUE after /connections/?debug
+
+I got this- Image 8 - Looks different from other responses we got
+
+Trying the same query on browser,I find - Image 9
+
+When trying =FALSE, =FALSE* and =TRUE*,i get the debug message
+
+Cheers to that! - Now to incorporate these into CTF's
