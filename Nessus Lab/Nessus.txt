@@ -1,0 +1,23 @@
+
+Nessus
+
+I am not told where the machine lies, so i need to perform a f-ping scan.
+
+First,we perform ip a s
+
+IP Address=192.168.99.70
+Fping to find other hosts
+
+We get host=192.168.99.50
+Firstly, we perform a full port service detection scan
+Command - Nmap -sV 192.168.99.50 -p 0-65535 -vv.We get - Image N1
+
+Now, we start Nessus, from the command line and after that head to https://localhost:8834
+
+We find that no HTTP services run on the machines, so we select a Web App Scan
+We click on a New Scan and fill up the details
+-Image N2
+
+and click on finish
+Then we get - Image N2(1). Click on the play button to start the scan
+Scan, generate reports in PDF form. We get Image N3
