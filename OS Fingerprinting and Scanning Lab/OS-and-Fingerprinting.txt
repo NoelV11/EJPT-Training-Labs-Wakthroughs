@@ -1,0 +1,66 @@
+Scanning and OS Fingerprinting
+
+We are given an IP = 10.142.111.240/24
+
+No targets were given, but we have to scan the entire subnet, using fping and nmap
+
+Goals:-
+1)Run a ping scan using fping - fping -a -g 10.143.111.0/24 (we scan the entire subnet)
+
+
+We get Image F1 as the only alive hosts
+Options:-
+-a - alive-hosts
+-g - ping-sweep
+
+Our alive ports
+10.142.111.1
+10.142.111.6
+10.142.111.48
+10.142.111.96
+10.142.111.99
+10.142.111.100
+
+2)Run a ping scan using Nmap
+
+Command - nmap -sN 19.142.111.0    ,   1,      6,     48    , 96  ,99,100
+
+They are alive (Running 7 scans)
+
+3)Run SYN scan over targets
+
+nmap -sS 10.142.111.1 -vv  - Open ports 53,22,80
+nmap -sS 10.142.111.6 -vv - Open port 22
+nmap -sS 10.142.111.48 -vv - Open port - 135,139,445(microsoft-ds),3389 (ms-wbt-server)
+
+nmap -sS 10.142.111.96 -vv - Open port - 80
+nmap -sS 10.142.111.99 -vv - Open ports - 53,22,80 
+nmap -sS 10.142.111.100 -vv  - All ports are closed
+
+
+3)Big difference between fping and nmap
+
+5)Detect the version of OS,running on each host
+
+nmap -sS 10.142.111.1 -O -A vv - OS Version FreeBSD
+Nmap -sS 10.142.111.6  -O -A -vv  OS Version - Linux (If the host is down,fping the subnet again and do the same nmap command)
+
+nmap -sS 10.142.111.48 -O -A -vv  OS Version - (No guess) -Maybe Microsoft
+Nmap -sS 10.142.111.96  -O -A -vv - OS Version (Best Guess) Linux 3.2
+Nmap -sS 10.142.111.100  -O -A -vv -OS Version -Unable to return the best guess, as there are many OS Fingerprints on this host
+
+---------------------------------------------------------------------
+
+4)Identify the version of each daemon listening on the network
+
+I was not sure
+
+We just had to use the -sV switch here
+
+
+nmap -sV 10.142.111.1 -vv FreeBSD
+nmap -sV 10.142.111.6 -vv
+nmap -sV 10.142.111.48 -vv
+nmap -sV 10.142.111.96 -vv
+nmap -sV 10.142.111.99 -vv
+nmap -sV 10.142.111.100 -vv
