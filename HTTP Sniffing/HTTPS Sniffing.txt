@@ -1,0 +1,26 @@
+HTTP Sniffing, using Wireshark - Lab
+
+I am currently connected in a VPN, with two other web servers
+
+A HTTP one at http://10.54.15.68
+and
+A HTTPS one at http://10.54.15.15
+
+We are given credentials:-
+
+Username: elsstudent
+
+Password: testpassword
+
+Objective - Use Wireshark, login to the login page, try to extract the credentials we just inserted
+
+I first go to http://10.54.15.68, where I am presented with a login page - Image H1
+
+I enter the given credentials, but before that, I open up Wireshark,set the interface to 'tap0', and then click on the login
+
+I am successfully authenticated. Let's head back to Wireshark.
+REMEMBER: We have made a POST Request(Submission of data), so let's sort the sniffed packets by HTTP
+
+I am given 2 sniffed packets. Analyzing the second packet gives me - Image H2
+
+Well we know that HTTPS cannot be sniffed, so no efforts were made there
