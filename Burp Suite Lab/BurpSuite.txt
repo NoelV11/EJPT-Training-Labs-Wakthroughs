@@ -7,15 +7,15 @@ Target IP = 10.100.13.5
 I visit the site and find - Image B1
 The site has 4 main webpages - /contact.html , /faq.html ,/blog.html and /home.html
 
-When intercepting the request,using proxy.I do not find anything strange.No weird webpage names or parameters appear
+When intercepting the request, use a proxy. I do not find anything strange.No weird webpage names or parameters appear
 
 Goal 1 - Explore the web application - done
 Goal 2 -Configuring your arsenal -done 
 My browser and proxy are on the gun
 
-Now,to find the hidden pages - using dirbuster and common.txt
+Now, to find the hidden pages - using dirbuster and common.txt
 The primary directory we find is /assets
-We get a overwhelming number of hits,considering duplicates of files stored in /assets - Image B2
+We get an overwhelming number of hits, considering duplicates of files stored in /assets - Image B2
 
 Nothing of interest here
 
@@ -23,24 +23,24 @@ Goal - 3 - The Keystone
 
 The automated mapping should have revealed a hidden path. Explore the path and extract useful information to reach your goal. You should note that developers are full of "magic tricks", find the one used in this application and you will find the keystone.
 
-I guessed that the developers would not want to make the hidden path public,so i peek a look at /robots.txt
+I guessed that the developers would not want to make the hidden path public,so I peek a look at /robots.txt
 I find - Image B3
 
-Taking the path,we enter it into the browser and find - Image B4
+Taking the path, we enter it into the browser and find - Image B4
 
 The extension path is /Y7gMEMZtin/login.php
 
-Taking a look at the page source,I find - Image B5
+Taking a look at the page source, I find - Image B5
 
-Strange ,the page numbers keep on going,
+Strange , the page numbers keep on going,
 
-Scrolling down,we finally find - Image B5 (1)
+Scrolling down, we finally find - Image B5 (1)
 
-From the clue,I guess,we need to power up our proxy,intercept the initial login.php and then enter the parameters,to intercept once more
+From the clue, I guess, we need to power up our proxy, intercept the initial login.php and then enter the parameters, to intercept once more
 
 I first capture the /Y7gMEMZtin/login.php packet - Image B6
 
-Now,we can do this in two ways.
+Now, we can do this in two ways.
 1)->Enter the query string in the URL tab of the browser
 
 or
@@ -52,12 +52,13 @@ Taking 2'nd option
 Intercept packet /Y7gMEMZtin/login.php - as in Image B6
 
 Send the intercepted packet to Repeater
-and then add the DEBUG paramter found from the page source - Image B7
+and then add the DEBUG parameter found from the page source - Image B7
 We then click on send and get back the following response - Image B7 (1)
 
-Now,we take option 1 and enter the URL extension in the browser - Image B8
+Now, we take option 1 and enter the URL extension in the browser - Image B8
 
 The following page loads up - Image B8(1)
 
-Yeah,that's pretty much it.
+Yeah, that's pretty much it.
 
+ 
