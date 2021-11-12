@@ -1,0 +1,77 @@
+XSS Lab 
+
+IP-192.168.99.10
+
+Credentials given - attacker:attacker
+
+Attack and find XSS vulnerable fields
+
+Step 1 - Find all XSS
+
+1'st hit - Search bar  (HTML)
+
+Command - <h3>Alert XSS </h3> and <h5>Alert XSS </h5>
+View the differences between Images X1 and X1(1)
+Example - Reflected XSS
+
+2'nd hit - Feedback Form  in 'Contact Us' section (HTML)
+
+Command - <h2>Alert</h2> - Enter in the subject field
+After clicking on submit,we get this succesful XSS - Image X2
+Example - Stored XSS
+I tried putting the same command on the Name field but came out unsuccessful
+
+3'rd hit - Feedback form ,subject field - (JavaScript)
+
+Command - <script>Alert</script> - As in Image X3
+After submitting,we get - Image X3(1)
+Example - Stored XSS
+
+4'th hit - Feedback form,subject field - (JavaScript + HTML)
+Command - <script><h3>This works fine</h3></script>
+We get Image X4
+Example - Stored XSS
+
+5'th hit - Search bar - (JavaScript)
+Command - <script>alert('XSS')</script>
+We get Image X5
+Example - Reflected XSS
+---------------------------------------------------------------------
+One instance of XSS we missed - Reflected XSS, on the search bar
+
+Command - \<script> alert(\'XSS\') \</script>
+
+We enter, but doesn't show an alert box on our webpage
+---------------------------------------------------------------------
+Self Learning on this lab
+
+How to get your session cookie id?
+Command - <script>alert(document.cookie)</script> - Enter in search bar
+We get - Image XSL1
+
+---------------------------------------------------------------------
+Now to steal cookies of Admin's session
+
+According to the lab description, the admin visits the website every 3-4 minutes
+
+For this task, we require a specific webpage, with the website, to store the cookies.Fortunately, INE has just done that, giving us
+192.168.99.11/get.php
+
+We also have a jar.txt file at the same IP, to store cookie id's
+
+First, let's infect the Feedback form with the cookie stealing script
+
+As in - Image X6
+
+Now, we wait on http://192.168.99.11/jar.txt and get - Image X6 (1)
+
+or
+
+Perform wget http://192.168.99.11/jar.txt
+cat jar.txt - Image X6 (2)
+
+Now, we need to change the current cookie id and set it to the captured admin's one.
+
+Open Firebug - Go to cookies tab -Image X7
+On the id field under Value, let's right-click and click on paste
+It will open up - Image X7 (1)
