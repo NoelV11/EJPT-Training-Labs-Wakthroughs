@@ -1,0 +1,55 @@
+Null Session
+
+Goal - The final goal of the lab is to retrieve information from the target machine such as shares, users, groups, and so on! Moreover, by navigating the remote machine, you should be able to find a file name "Congratulations.txt\". Download it and explore its content.
+
+I connect first to the VPN
+
+IP Address=192.168.99.100
+
+So first, let's fping the ip subnet range, to find our target
+Command - fping -a -g 192.168.99.0/24
+
+We find our target - 192.168.99.162 - Image N1
+
+We now run a scan, to find if the smb port exists
+Command -Nmap -sV 192.168.99.162 -p 0-600 -O -vv
+I get - Image N2
+
+Though the OS could not be determined, it is surely a system with Windows OS, as seen from the port versions 
+
+We now run an enum4linux scan over the target
+Command - enum4linux 192.168.99.100
+
+We get Images N3 , N3 (1),N3 (2),N3 (3),N3 (4),N3 (5)
+
+Users on the SMB - Frank,eLS,Guest,HelpAssistant and netadmin
+
+
+Now,we perform a nmap scan,to enumerate the smb shares
+Command -nmap -sV 192.168.99.100 --script=smb-enum* -vv
+We get - Image N4
+
+Since this was a null session lab, I was not granted normal anonymous entry and gained entry, into the share, using the anonymous method
+
+According to our notes, we find that both IPC and C shares are exploitable
+
+Command - smbclient //192.168.43.163/IPC$ -U ""
+
+I make my way in but am denied from listing the contents, using 'ls'.
+
+I look again at the shares list and find that IPC, Frank, and FrankDocs are denied from listing the contents.
+
+From the list, we see that WorkSharing seems alright, so let's target it
+
+Command - smbclient //192.168.43.163/WorkSharing -U ""
+
+I make my way in, and upon ls'ing, I find - Image N5
+
+Now to download the file off the server
+Commands:-
+tarmode
+recurse
+prompt
+mget Congratulations.txt /
+
+The file get's downloaded to our /root directory.Catting it,we find - Image N6
