@@ -1,0 +1,64 @@
+Dirbuster Lab
+
+-We are not given a target/targets. Find it on your own
+
+Having connected to the VPN, my IP=10.104.11.50
+
+Now to find all hosts on this network subnet, using fping
+
+Alive hosts:-
+10.104.11.50
+10.104.11.96
+10.104.11.198
+
+
+Now to explore the web servers on these hosts
+
+I can connect to 10.104.11.96 but am unable to connect to 10.104.11.198.
+
+Upon a Nmap scan, I find that 10.104.11.198 is a host, with port 80 not open
+
+Opening up 10.104.11.96, we run a dirbuster scan, using common.txt
+
+The description says that the login.php page is restricted. -Image D1
+
+As dirbusteer keeps fuzzing, let's enumerate the results we got
+
+At /staff/README.txt, I find - Image D2
+
+As sure it was, I find an entry called /include/config.old.When traversing to that directory, I am met with a download prompt, for the config. old file. I download it
+
+Catting the file, I find - Image D3
+Now, it was suggested to use mysql
+
+From a previous Nmap scan, I did find that 10.104.11.198 did have port 3306 running. We did try many methods of, logging in, but was denied.
+
+Probably the password is wrong, but we do not find a leeway.
+I had mentioned that I used common.txt, but in this case, the wordlist - directory-list-2.3.-small.txt would prove to be much more useful
+
+From the fuzz results, the wordlist pulls up an entry called /signup.php
+
+Visiting it, we are met with - Image D4
+
+Now to just log in with our new credentials
+We finally get in
+Command - mysql -h 10.104.11.198 -u 'awdmgmt' -p
+
+and then enter the password in the next prompt.
+
+We are inside a MariaDB DB,version=5.5.38-0+wheezy1 (Debian)
+
+Next, to show the databases
+Command - show databases; - We find - Image D5
+
+Now,to use awdmgmt_accounts
+Command - use awdmgmt_accounts;
+
+To show the available tables
+Command - show tables;
+We get - Image D5 (1)
+
+Now, to display the contents from the table
+Command - select * from accounts;
+
+We finally get - Image D5 (2)
